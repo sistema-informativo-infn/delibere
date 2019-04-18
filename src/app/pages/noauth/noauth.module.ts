@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from '@pages/noauth/home/home.component';
 import { NoauthComponent } from '@pages/noauth/noauth.component';
+import { UiModule } from '@ui/ui.module';
 
 const ROUTES: Routes = [
   {
@@ -30,6 +31,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     RouterModule.forChild(ROUTES),
+    UiModule,
   ],
   exports: [
     ...COMPONENTS,
