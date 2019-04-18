@@ -2,19 +2,25 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthComponent } from './auth.component';
+import { HomeComponent } from './home/home.component';
+import { NoauthComponent } from './noauth.component';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: AuthComponent,
+    component: NoauthComponent,
     children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
     ],
   },
 ];
 
 const COMPONENTS = [
-  AuthComponent,
+  NoauthComponent,
+  HomeComponent,
 ];
 
 @NgModule({
@@ -29,4 +35,4 @@ const COMPONENTS = [
     ...COMPONENTS,
   ],
 })
-export class AuthModule { }
+export class NoauthModule { }

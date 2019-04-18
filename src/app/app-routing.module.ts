@@ -6,6 +6,10 @@ const ROUTES: Routes = [
     path: '',
     loadChildren: './pages/auth/auth.module#AuthModule',
   },
+  {
+    path: '',
+    loadChildren: './pages/noauth/noauth.module#NoauthModule',
+  },
 ];
 
 @NgModule({
