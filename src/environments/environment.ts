@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  API_URL: 'http://www.ac.infn.it/',
+  DELIBERE_URL: 'delibere/api/list.php',
 };
 
 /*
