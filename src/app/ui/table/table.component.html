@@ -1,0 +1,14 @@
+<!--
+  [gtClasses]="'table-sm'"
+  #myTable
+  [gtSettings]="configObject.settings"
+  [gtFields]="configObject.fields"
+  [(gtData)]="configObject.data"
+-->
+<ng-container *ngIf="source$ | async as source">
+  <generic-table
+    [gtSettings]="source.settings"
+    [gtFields]="source.fields"
+    [gtData]="source.data">
+  </generic-table>
+</ng-container>
