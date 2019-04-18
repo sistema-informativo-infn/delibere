@@ -1,9 +1,6 @@
 <!--
   [gtClasses]="'table-sm'"
   #myTable
-  [gtSettings]="configObject.settings"
-  [gtFields]="configObject.fields"
-  [(gtData)]="configObject.data"
 -->
 <ng-container *ngIf="source$ | async as source">
   <generic-table
@@ -11,4 +8,5 @@
     [gtFields]="source.fields"
     [gtData]="source.data">
   </generic-table>
+  <ng-content select="[paginator]"></ng-content>
 </ng-container>

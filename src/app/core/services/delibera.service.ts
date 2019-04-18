@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
-import { Delibera } from '@core/models';
+import { Delibera, DeliberaFilter } from '@core/models';
 
 @Injectable()
 export class DeliberaService {
@@ -13,7 +13,11 @@ export class DeliberaService {
   ) {
   }
 
-  getDelibere() {
-    return this.http.get<Delibera[]>(`${this.apiUrl}${this.deliberApiUrl}`);
+  getDelibere(filters: DeliberaFilter) {
+    const f: Record<string, any> = filters; // FIXME: Improve typing
+
+    return this.http.get<Delibera[]>(`${this.apiUrl}${this.deliberApiUrl}`, {
+      params: f,
+    });
   }
 }

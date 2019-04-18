@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from '@pages/noauth/home/home.component';
 import { NoauthComponent } from '@pages/noauth/noauth.component';
+import { SharedModule } from '@shared/shared.module';
 import { UiModule } from '@ui/ui.module';
 
 const ROUTES: Routes = [
@@ -32,6 +33,7 @@ const COMPONENTS = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     UiModule,
+    SharedModule,
   ],
   exports: [
     ...COMPONENTS,

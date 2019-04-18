@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Delibera } from '@core/models';
+import { Delibera, DeliberaFilter } from '@core/models';
 import { DeliberaService } from '@core/services/delibera.service';
 import { TableField } from '@ui/table/table.component';
 
@@ -9,7 +9,9 @@ import { TableField } from '@ui/table/table.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+
+  deliberaFilters: DeliberaFilter = {};
 
   constructor(
     private readonly deliberaService: DeliberaService,
@@ -40,9 +42,9 @@ export class HomeComponent implements OnInit {
     // TODO: Add urlPdf
   ];
 
-  deliberaPager = () => this.deliberaService.getDelibere();
+  deliberaPager = (filters: DeliberaFilter) => this.deliberaService.getDelibere(filters);
 
-  ngOnInit() {
+  deliberaFiltersChange(filters: DeliberaFilter) {
+    this.deliberaFilters = filters;
   }
-
 }

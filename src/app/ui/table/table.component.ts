@@ -1,8 +1,8 @@
 import { GtConfig, GtConfigField, GtConfigSetting } from '@angular-generic-table/core';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { NEVER, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, NEVER, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 // Public API
 export interface TableField<T> {
@@ -43,6 +43,8 @@ function getSimpleColumnSettings(fields: Array<TableColumn<any>>) {
   return fields.map((f) => ({ objectKey: f.key }));
 }
 
+type GenericFilter = Record<string, any>;
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ui-table',
@@ -51,10 +53,15 @@ function getSimpleColumnSettings(fields: Array<TableColumn<any>>) {
 })
 export class TableComponent<T> implements OnInit {
 
+  private _filters$ = new BehaviorSubject<GenericFilter>({});
+  @Input() set filters(value: GenericFilter) {
+    this._filters$.next(value);
+  }
+
   @Input() fields?: Array<TableField<T>>;
   @Input() columnSettings?: Array<TableColumn<T>>;
 
-  @Input() pager: () => Observable<T[]> = (() => NEVER);
+  @Input() pager: (filters: GenericFilter) => Observable<T[]> = (() => NEVER);
 
   source$: Observable<GtConfig<T>> = of(EMPTY_TABLE_SOURCE);
 
@@ -62,7 +69,9 @@ export class TableComponent<T> implements OnInit {
   }
 
   ngOnInit() {
-    this.source$ = this.pager().pipe(
+    this.source$ = this._filters$.pipe(
+      switchMap((filters) => this.pager(filters)),
+    ).pipe(
       map((data) => {
         const fields = transformFields(this.fields || []);
         const source: GtConfig<T> = {
